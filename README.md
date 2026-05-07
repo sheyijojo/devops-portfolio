@@ -204,13 +204,11 @@ Networking:   VPC | Transit Gateway | VPN | NACLs | Route Tables | EFA
 
 ## 📜 Certifications
 
-- AWS Certified Solutions Architect – Professional
 - AWS Certified Generative AI Developer – Professional  
 - AWS Certified Security – Specialty
 - AWS Certified Solutions Architect – Associate
 - AWS Certified Developer – Associate
 - AWS Certified CloudOps Engineer – Associate
-- Certified Kubernetes Administrator (CKA)
 - AZ-104: Microsoft Azure Administrator
 - Google Associate Cloud Engineer
 - Google Cloud Digital Leader
