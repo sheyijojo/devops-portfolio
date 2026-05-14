@@ -15,373 +15,721 @@
 | Patch MTTR reduction | 85% (14 days → <2 days) |
 | SSM associations deployed | 49 org-wide |
 | S3 objects re-encrypted | 22,000+ |
+| LocalStack cost reduction | 75% ($13,080 → $3,204/yr) |
+| Cert tracking effort reduction | ~90% via automation |
 | Production downtime | Zero |
 
 ---
 
-## 🔐 Security & Compliance
+## 💼 Experience Overview
+
+| Role | Scope |
+|------|-------|
+| **Senior DevSecOps Engineer** | AWS security architecture, CI/CD automation, incident response, compliance engineering |
+| **Azure & DevOps Tools Administrator** | GitHub SSO/SAML, Azure AD, SolarWinds, LocalStack, Azure DevOps, SonarQube, Cisco vMX |
+
+Both roles held concurrently at **Meneses Law PLLC** | Jan 2024 – Present | Houston, TX
+
+---
+
+## 🖥️ Azure & DevOps Tools Administration
+
+> Platform and tooling administration across enterprise developer and security platforms — managing identity federation, monitoring, local cloud testing, CI/CD governance, and network infrastructure.
+
+### A1. GitHub SSO / SAML Configuration & Identity Federation
+**2024–2026 | Meneses Law PLLC**
+
+Configured and maintained GitHub Organization SSO using SAML 2.0 federation with Azure Active Directory, enforcing centralized identity governance across all engineering repositories.
+
+- Configured SAML SSO between GitHub Organization and Azure AD — enforced SSO requirement for all members
+- Managed SCIM provisioning for automatic user lifecycle (provision/deprovision) from Azure AD to GitHub
+- Administered GitHub Organization membership, team structure, repository access, and role assignments
+- Diagnosed and resolved SAML assertion failures, certificate expiration issues, and SSO enforcement gaps
+- Rotated SAML signing certificates with zero authentication downtime across engineering teams
+- Enforced OAuth app policies and GitHub App permissions to restrict third-party access to org resources
+
+**Impact:** Centralized identity governance for all engineering access, eliminated manual user provisioning, zero SSO downtime during certificate rotations
+
+`GitHub Enterprise` `SAML 2.0` `Azure Active Directory` `SCIM` `OAuth` `SSO` `GitHub Actions`
+
+---
+
+### A2. Azure Active Directory & Enterprise Application Management
+**2024–2026 | Meneses Law PLLC**
+
+Administered Azure AD enterprise applications, service principals, and identity workflows supporting secure application integrations across cloud and SaaS platforms.
+
+- Managed enterprise application registrations, service principal credentials, and API permission scopes
+- Configured Conditional Access policies restricting application access based on user, device, and location context
+- Administered App Roles, group assignments, and claims mapping for SAML and OIDC application integrations
+- Rotated client secrets and certificates for service principals with zero disruption to dependent workloads
+- Reviewed and remediated risky sign-in alerts and identity protection findings in Azure AD Identity Protection
+- Managed cross-tenant application access for vendor integrations (MongoDB Atlas, SolarWinds, Rapid7)
+
+**Impact:** Secure enterprise application governance across all SaaS and cloud platforms, eliminated standing credentials via rotation automation
+
+`Azure Active Directory` `Enterprise Applications` `Conditional Access` `SAML` `OIDC` `Service Principals` `Azure AD Identity Protection`
+
+---
+
+### A3. SolarWinds Observability — Platform Administration & Monitoring
+**2024–2026 | Meneses Law PLLC**
+
+Administered SolarWinds Observability platform for infrastructure health monitoring, alerting, and AWS resource visibility across cloud and on-premises environments.
+
+- Configured SolarWinds AWS integration for EC2, ECS, RDS, ALB, and Lambda metric ingestion
+- Built custom dashboards for infrastructure health, deployment status, and security event visibility
+- Configured alert policies and notification channels (email, Slack) for infrastructure anomalies and threshold breaches
+- Tuned anomaly detection thresholds to reduce false positive noise (CloudWatch vMX metric: 2σ → 3σ)
+- Identified and escalated critical vendor bug — terminated ASG instances appearing as active entities in real-time dashboards, forced engineering escalation with documented evidence package
+- Managed agent deployments and SolarWinds collector configurations across managed EC2 instances
+
+**Impact:** Improved infrastructure observability org-wide, eliminated ~10+ phantom alerts/day from vendor bug, tuned alerting to reduce false positive noise
+
+`SolarWinds Observability` `AWS EC2` `ECS` `CloudWatch` `Alert Management` `Infrastructure Monitoring`
+
+---
+
+### A4. LocalStack — Platform Adoption & License Management
+**2024–2026 | Meneses Law PLLC**
+
+Led LocalStack platform evaluation, licensing negotiation, and adoption strategy for AWS infrastructure testing and Terraform workflow validation.
+
+- Evaluated LocalStack Ultimate licensing proposal vs. actual team requirements (3 engineers vs. 10-seat proposal)
+- Negotiated with vendor — reduced annual cost from $13,080 to $3,204/year (75% reduction) by eliminating unnecessary SSO/security add-ons
+- Configured LocalStack environment for Terraform module testing, AWS service emulation, and CI/CD pipeline validation
+- Established LocalStack workflows for S3, Lambda, SQS, DynamoDB, and IAM local testing before AWS deployment
+- Documented LocalStack setup, configuration patterns, and team onboarding guidelines
+- Integrated LocalStack into GitHub Actions CI workflows for pre-deployment infrastructure validation
+
+**Impact:** 75% licensing cost reduction ($9,876/year saved), enabled Terraform and CI/CD testing at sustainable cost, established repeatable local AWS testing workflows
+
+`LocalStack` `Terraform` `AWS Emulation` `GitHub Actions` `CI/CD` `Cost Optimization`
+
+---
+
+### A5. Azure DevOps — Administration & Pipeline Governance
+**2024–2026 | Meneses Law PLLC**
+
+Administered Azure DevOps organization settings, pipeline governance, and developer access controls across engineering projects.
+
+- Managed Azure DevOps organization-level settings: project policies, pipeline permissions, and agent pool configurations
+- Configured branch policies across Azure Repos: required reviewers, build validation, comment resolution, and merge strategies
+- Administered service connections for AWS, Azure, and GitHub integrations — rotated credentials and validated OIDC federation
+- Managed self-hosted agent pool deployments on EC2 — configured agent registration, capability tags, and maintenance schedules
+- Enforced pipeline security: restricted pipeline access to specific repositories, validated YAML template inheritance
+- Reviewed and remediated Azure DevOps audit logs for unauthorized access attempts and policy violations
+- Configured variable groups and Azure Key Vault integration for secure secret management in pipelines
+
+**Impact:** Standardized pipeline governance across Azure DevOps projects, eliminated standing service connection credentials via OIDC, improved audit visibility
+
+`Azure DevOps` `Azure Pipelines` `Azure Repos` `Service Connections` `OIDC` `Key Vault` `Agent Pools`
+
+---
+
+### A6. SonarQube — Platform Administration & DevSecOps Integration
+**2024–2026 | Meneses Law PLLC**
+
+Administered SonarQube platform end-to-end — from installation and database migration to quality gate enforcement and enterprise licensing management.
+
+- Administered SonarQube projects, quality gates, quality profiles, and user/group permissions
+- Configured GitHub Actions integration for PR decoration and branch analysis across 28+ TypeScript repositories
+- Diagnosed and fixed SonarQube misconfiguration scanning wrong project on every PR across 200+ repositories
+- Pinned SonarQube GitHub Action to commit SHA resolving supply chain risk (SonarQube S7637)
+- Migrated SonarQube database from local PostgreSQL to AWS RDS — pg_dump/restore with zero data loss
+- Diagnosed SonarQube 2026 crash-loop traced to Elasticsearch disk watermark cascade shutdown
+- Managed LOC licensing capacity — identified 499,995/500K threshold risk, coordinated enterprise upgrade to 1M LOC preventing CI/CD disruption
+
+**Impact:** Uninterrupted code quality scanning across all repos, zero data loss on DB migration, CI/CD disruption prevented at 499,995 LOC threshold
+
+`SonarQube` `GitHub Actions` `PostgreSQL` `AWS RDS` `Elasticsearch` `SAST` `DevSecOps`
+
+---
+
+### A7. Cisco vMX — Network Infrastructure Administration
+**2024–2026 | Meneses Law PLLC**
+
+Administered Cisco vMX virtual network appliances deployed in AWS for enterprise VPN and network routing across cloud environments.
+
+- Managed Cisco vMX configuration, routing tables, and VPN tunnel health across AWS VPC environments
+- Monitored vMX network performance and investigated GuardDuty findings related to vMX routing behavior
+- Identified and documented benign GuardDuty `Recon:EC2/Portscan` finding caused by Cisco vMX routing internal traffic to honeypot IPs — prevented unnecessary incident escalation
+- Tuned CloudWatch anomaly detection on vMX `NetworkOut` metric (2σ → 3σ) to reduce false positive alerting noise
+- Excluded Cisco vMX from SSM patch management — deliberate architecture decision to preserve network appliance stability
+- Coordinated vMX connectivity with Transit Gateway, VPC peering, and on-premises IPSec VPN tunnel management
+
+**Impact:** Stable enterprise VPN connectivity, false positive GuardDuty findings documented and triaged, vMX excluded from automated patching to prevent network disruption
+
+`Cisco vMX` `AWS VPC` `Transit Gateway` `GuardDuty` `CloudWatch` `IPSec VPN`
+
+---
+
+## 🔐 Security & Compliance Projects
 
 ### 1. AWS Security Hub Centralization — 10-Account Organization
 **May 2026 | Meneses Law PLLC**
 
-Designed and implemented centralized Security Hub architecture across AWS Organization. Designated Security-workloads account as delegated administrator, enrolled all member accounts, and enforced 3 compliance frameworks simultaneously.
+Designed and implemented centralized Security Hub architecture across AWS Organization — 10 accounts, 3 compliance frameworks, 100% member enrollment.
 
-- Deregistered incorrect delegated admin, re-registered `250740063095` (Security-workloads) as proper delegated administrator
+- Deregistered incorrect delegated admin, re-registered Security-workloads account (`250740063095`)
 - Enrolled all 9 member accounts — 100% enrollment, zero failures
-- Enabled FSBP v1.0, CIS AWS Foundations Benchmark v1.4, and NIST 800-53 Rev 5 — all `READY`
-- Enforced us-east-1 only posture, removed incorrect cross-region aggregator
-- Configured auto-enable for all future accounts joining the organization
-- Eliminated security blind spots across Production, Development, CICD, Identity, CloudTrail, and Operations accounts
+- Enabled FSBP v1.0, CIS AWS Foundations Benchmark v1.4, and NIST 800-53 Rev 5
+- Enforced us-east-1 only posture, configured auto-enable for future accounts
 
-**Impact:** 10 accounts under centralized monitoring (up from 0), 3 compliance frameworks enforced, future-proofed for new account onboarding
+**Impact:** 10 accounts under centralized monitoring (up from 0), 3 frameworks enforced, future-proofed
 
-`Security Hub` `AWS Organizations` `Control Tower` `CIS Benchmarks` `NIST 800-53` `FSBP` `AWS CLI`
+`Security Hub` `AWS Organizations` `Control Tower` `CIS` `NIST 800-53` `FSBP`
 
 ---
 
 ### 2. AWS Security Hardening — 10-Account Organization
 **April 2026 | Meneses Law PLLC**
 
-Led comprehensive security hardening engagement across entire AWS Organization for a law firm handling sensitive client immigration data. 53+ findings remediated with zero production downtime.
+53+ findings remediated across IAM, S3, EC2, networking, logging — zero production downtime.
 
-- **IAM:** Org-wide password policies, IAM Access Analyzer (4 regions), break-glass admin with hardware MFA
-- **S3:** SSL-only policies on 80 buckets, centralized access logging (78 buckets), versioning with Glacier lifecycle, KMS encryption
-- **EC2/EBS:** IMDSv2 on all launch templates, EBS encryption by default (4 regions), blocked public snapshot access, DLM backup policies
-- **Network:** Closed default VPC security groups org-wide, NACL SSH/RDP deny rules, VPC flow logs (3 regions)
-- **TLS:** Updated ALB to post-quantum resistant TLS 1.3 (`ELBSecurityPolicy-TLS13-1-2-Res-PQ-2025-09`)
-- **Cost:** Decommissioned CloudStorageSec ($200+/month), deleted 47 CodeBuild projects, 39 DynamoDB tables, 29,000+ orphaned S3 objects
+- SSL-only policies on 80 S3 buckets, KMS on CloudTrail + 18 SNS topics, re-encrypted 22,000+ S3 objects
+- Post-quantum TLS 1.3 ALB policy, IMDSv2 on all EC2 launch templates, EBS encryption by default (4 regions)
+- Deleted 248 orphaned log groups, 47 CodeBuild projects, 39 DynamoDB tables, 29,000+ orphaned S3 objects
 
-**Impact:** 159 → 106 findings (33% reduction), $200+/month saved, zero downtime, 22,000+ S3 objects re-encrypted
+**Impact:** 159 → 106 findings (33% reduction), $200+/month saved, zero downtime
 
-`Security Hub` `Config` `IAM` `KMS` `S3` `EC2` `VPC` `ALB` `CloudTrail` `CloudWatch` `SSM`
+`Security Hub` `Config` `IAM` `KMS` `S3` `EC2` `VPC` `ALB` `CloudTrail`
 
 ---
 
 ### 3. AWS Audit Manager — CIS Benchmark Compliance Pipeline
 **May 2026 | Meneses Law PLLC**
 
-Architected end-to-end compliance automation before AWS Audit Manager's April 30, 2026 new-customer cutoff deadline.
+Org-wide CIS v1.4.0 (L1 & L2) compliance automation before service maintenance deadline.
 
-- Designated Control Tower Audit account as delegated administrator
-- Deployed CIS AWS Foundations Benchmark v1.4.0 (Level 1 & 2) org-wide
-- Integrated evidence collection: Config, CloudTrail, Security Hub, Evidence Finder (CloudTrail Lake)
-- Updated KMS key policy to grant delegated administrator account access
-- Configured SNS alerting pipeline to 5 stakeholders — validated end-to-end via AWS CLI
+- Delegated administrator model, Config + CloudTrail Lake + Security Hub evidence collection
+- SNS alerting to 5 stakeholders, validated end-to-end via AWS CLI
 
-**Impact:** Automated continuous compliance evidence collection org-wide, met hard vendor deadline, eliminated manual audit prep
+**Impact:** Automated compliance evidence org-wide, hard deadline met
 
-`Audit Manager` `Control Tower` `Organizations` `Config` `CloudTrail Lake` `Security Hub` `KMS` `SNS`
+`Audit Manager` `Control Tower` `Organizations` `CloudTrail Lake` `Security Hub` `SNS`
 
 ---
 
 ### 4. Rapid7 InsightIDR Honeypot Audit, Redesign & Expansion
 **May 2026 | Meneses Law PLLC | CLI-only**
 
-Inherited a year-old undocumented honeypot with unknown health status. Found a critical NACL gap making it completely blind to internal threats.
+Inherited year-old undocumented honeypot — found critical NACL gap making it blind to internal threats.
 
-- Mapped full account via CLI: 3 VPCs, 11 subnets, 4 NAT gateways, Transit Gateway, 2 IPSec VPN tunnels
-- Identified critical NACL gap silently dropping all internal traffic — lateral movement would never trigger an alert
-- Implemented fix: 7 targeted NACL rules covering all RFC1918 and on-premises VPN CIDRs
-- Deployed second honeypot to uncovered VPC, resolved multi-layer connectivity failure
-- Confirmed live MITRE ATT&CK-tagged detections: Initial Access, Valid Accounts, lateral movement
-- Produced full architecture reference doc + Confluence runbook — first-ever documentation
+- Mapped 3 VPCs, 11 subnets, 4 NAT gateways, Transit Gateway, 2 IPSec VPN tunnels
+- Implemented 7 NACL rules covering RFC1918 + VPN CIDRs, deployed second honeypot
+- Confirmed live MITRE ATT&CK detections: Initial Access, Valid Accounts, lateral movement
+- Produced first-ever architecture doc + Confluence runbook
 
-**Impact:** 2x honeypot coverage, critical detection gap closed, live MITRE ATT&CK detections confirmed
+**Impact:** 2x coverage, critical gap closed, live detections confirmed
 
-`AWS VPC` `CloudFormation` `IAM` `GuardDuty` `CloudWatch` `Rapid7 InsightIDR` `MITRE ATT&CK` `AWS CLI`
+`VPC` `CloudFormation` `GuardDuty` `Rapid7 InsightIDR` `MITRE ATT&CK` `AWS CLI`
 
 ---
 
 ### 5. Rapid7 S3 Log Ingestion Remediation (Lambda)
 **May 7, 2026 | Meneses Law PLLC**
 
-Designed and deployed serverless remediation pipeline for failing Rapid7 SIEM log ingestion caused by oversized Mosyle log lines exceeding 1.4MB limit.
+Serverless fix for Rapid7 SIEM ingestion failures caused by Mosyle log lines exceeding 1.4MB.
 
-- Designed S3-triggered Lambda workflow for preprocessing oversized log files
-- Developed Python logic to validate, split, and re-upload sanitized files to processed prefix
-- Implemented recursive S3 event trigger safeguards
+- S3-triggered Lambda split oversized lines, re-uploaded to processed prefix, recursive trigger safeguards
 
-**Impact:** Ingestion failures eliminated, continuous SOC visibility restored, manual intervention fully automated
+**Impact:** Ingestion failures eliminated, SOC visibility restored, fully automated
 
-`AWS Lambda` `Amazon S3` `Python` `IAM` `CloudWatch` `Rapid7` `Serverless`
+`Lambda` `S3` `Python` `Rapid7` `Serverless`
 
 ---
 
 ### 6. AWS SCP Architecture — Bedrock Access Unblock
 **May 7, 2026 | Meneses Law PLLC**
 
-Diagnosed and resolved Amazon Bedrock access failure on production Lambda caused by Control Tower-managed SCP.
+Unblocked AI Lambda from Bedrock via SCP engineering — preserved Control Tower governance intact.
 
-- Traced exact blocking SCP (`GRREGIONDENY`) via AWS CLI — identified as Control Tower-managed, not safely editable
-- Diagnosed secondary issue: Lambda missing `AWSLambdaVPCAccessExecutionRole`
-- Created new SCP (`AllowBedrockAllUSRegions`) explicitly allowing `bedrock:*` and `bedrock-runtime:*` across all US regions
-- Attached to Development OU without touching any Control Tower guardrails
-- Documented full SCP hierarchy for the first time at org level
+- Traced blocking SCP (`GRREGIONDENY`) via CLI, created `AllowBedrockAllUSRegions` SCP
+- Attached to Development OU without modifying any Control Tower guardrails
 
-**Impact:** AI Lambda unblocked, Control Tower governance preserved, Development OU future-proofed for Bedrock
+**Impact:** AI Lambda unblocked, governance preserved, first-ever SCP hierarchy documented
 
-`AWS Organizations` `Control Tower` `SCPs` `Lambda` `Bedrock` `IAM` `AWS CLI`
+`Organizations` `Control Tower` `SCPs` `Lambda` `Bedrock` `IAM`
 
 ---
 
-### 7. Security Hub CSPM + Control Tower Governance Audit
+### 7. SEC-T01 AWS Config Compliance Remediation Sprint
+**2026 | Meneses Law PLLC**
+
+Phased remediation of high-risk Config findings across Dev, Sandbox, Operations, Security, and Production.
+
+- Prioritized public exposure, encryption gaps, overpermissive SGs, IAM hygiene
+- Validated via Config Aggregator + CloudWatch before Production rollout
+
+**Impact:** Critical findings reduced, phased workflow established, zero production impact
+
+`AWS Config` `Security Hub` `IAM` `CloudWatch` `Organizations`
+
+---
+
+### 8. Secrets Rotation & Certificate Expiration Automation
+**May 2025 | Meneses Law PLLC**
+
+Automated SAML/TLS certificate monitoring across AWS accounts — shifted from reactive to proactive.
+
+- Lambda + Config + Secrets Manager inventory, CloudWatch 30/15/7-day alarms
+- SAML certificate validation integrated into CI/CD pipelines
+
+**Impact:** ~90% manual tracking reduction, zero authentication outage risk
+
+`Lambda` `Secrets Manager` `Config` `CloudWatch` `SAML` `GitHub Actions`
+
+---
+
+### 9. Security Hub CSPM + Control Tower Governance Audit
 **May 2026 | Meneses Law PLLC**
 
-Investigated multi-account Security Hub CSPM and Control Tower governance inconsistencies across the organization.
+Diagnosed multi-account CSPM and Control Tower governance drift — built remediation path.
 
-- Audited Control Tower, Config, Security Hub CSPM, and CloudTrail baselines across governed and non-governed regions
-- Diagnosed delegated administrator removal failures tied to Security Hub Central Configuration dependencies
-- Mapped org-wide integrations: GuardDuty, Inspector, IAM Access Analyzer, Firewall Manager, AWS Health
-- Developed remediation approach for centralized governance model
+- Audited Config baselines, diagnosed delegated admin removal failures
+- Mapped GuardDuty, Inspector, IAM Access Analyzer, Firewall Manager integrations
 
-**Impact:** Root causes identified, remediation path established, future Control Tower baseline conflicts prevented
+**Impact:** Root causes identified, future baseline conflicts prevented
 
-`Control Tower` `Security Hub` `AWS Config` `Organizations` `GuardDuty` `Inspector` `StackSets`
+`Control Tower` `Security Hub` `Config` `GuardDuty` `Inspector`
 
 ---
 
 ## ⚙️ Infrastructure, Patching & Systems Management
 
-### 8. Centralized SSM Infrastructure — Multi-Account Organization
+### 10. Centralized SSM Infrastructure — Multi-Account Organization
 **May 2026 | Meneses Law PLLC**
 
-Designed centralized AWS Systems Manager infrastructure across multi-account Organization — unified patch management, inventory, and compliance from single delegated admin account.
+49 State Manager associations deployed org-wide — unified patch, inventory, and compliance visibility.
 
-- Enabled Organizations trusted access for all SSM services
-- Registered Ops account (`492661376591`) as SSM delegated administrator
-- Deployed DHMC org-wide for automatic IAM permissions on all EC2 instances
-- Configured State Manager: SSM Agent updates (14-day), inventory (12-hour), patch compliance (daily)
-- Deployed 49 successful State Manager associations org-wide
-- Resolved failed associations in 2 member accounts (missing IAM profiles, VPC endpoints)
+- DHMC org-wide, SSM Agent updates (14-day), inventory (12-hour), patch compliance (daily)
+- Resolved failed associations in 2 member accounts, onboarded Security Workloads account
 
-**Impact:** 100% visibility across 6 accounts, 49 associations deployed, ~80% operational overhead reduction
+**Impact:** 100% visibility across 6 accounts, ~80% overhead reduction
 
-`SSM Fleet Manager` `Patch Manager` `State Manager` `Quick Setup` `Organizations` `Control Tower` `StackSets`
+`SSM` `Organizations` `Control Tower` `State Manager` `Quick Setup`
 
 ---
 
-### 9. Cross-Account SSM Automation Patching
+### 11. Cross-Account SSM Automation Patching
 **May 4, 2026 | Meneses Law PLLC**
 
-Engineered org-wide cross-account patch management from scratch — zero existing framework, zero documentation.
+Built org-wide patching from scratch — custom baselines, STS cross-account role assumption.
 
-- Custom patch baselines for Ubuntu 22.04/24.04 and Amazon Linux 2023
-- SSM Automation document with STS cross-account role assumption (ExternalId)
-- Resolved full IAM permission chain: `sts:AssumeRole`, `iam:PassRole`, `ssm:SendCommand`, `ssm:ListCommands`
-- Deliberate architecture decision: excluded honeypots and network appliances from SSM management
+- Ubuntu 22.04/24.04 + AL2023 baselines, full IAM chain resolved
+- Excluded honeypots and Cisco vMX — deliberate architecture decision
 
-**Impact:** Full patch compliance across all instances, org-wide automation, deliberate security exclusions documented
+**Impact:** Full patch compliance, org-wide automation, deliberate exclusions documented
 
-`SSM Automation` `STS` `IAM` `EC2` `CloudFormation` `Ubuntu` `Amazon Linux`
+`SSM Automation` `STS` `IAM` `EC2` `CloudFormation`
 
 ---
 
-### 10. AWS Inspector + SSM Vulnerability Remediation Pipeline
+### 12. AWS Inspector + SSM Vulnerability Remediation Pipeline
 **2026 | Meneses Law PLLC**
 
-Automated vulnerability remediation for multi-OS EC2 fleet — eliminated 14+ day manual patching windows.
+Automated CVE remediation — eliminated 14+ day manual patching windows.
 
-- OS-specific patch baselines for Ubuntu 22.04 and Amazon Linux 2 with auto-approval rules
-- State Manager associations with `AWS-RunPatchBaseline`, maintenance windows, reboot-safe automation
-- Closed-loop vulnerability tracking integrating Inspector findings with patch compliance reporting
+- OS-specific baselines, State Manager + maintenance windows, closed-loop Inspector integration
 
-**Impact:** 85% MTTR reduction (14 days → <2 days), 100% patch compliance in first month, 8+ hrs/week saved
+**Impact:** 85% MTTR reduction (14 days → <2 days), 8+ hrs/week saved
 
-`AWS Inspector` `SSM Patch Manager` `State Manager` `EC2` `CloudWatch` `Python (boto3)`
+`Inspector` `SSM Patch Manager` `State Manager` `EC2` `Python (boto3)`
 
 ---
 
-### 11. EC2 Disk Exhaustion — Production Incident Response
+### 13. AWS Control Tower Landing Zone Unblock
+**Oct 2025 | Meneses Law PLLC**
+
+Resolved all Control Tower pre-check failures blocking multi-account governance adoption.
+
+- Purged Config recorders/delivery channels across all regions, removed conflicting delegated admins
+- Recreated AWSControlTowerExecution role with correct trust relationships
+
+**Impact:** Landing zone unblocked, governance-ready multi-account structure restored
+
+`Control Tower` `Organizations` `Config` `IAM` `StackSets` `AWS CLI`
+
+---
+
+### 14. Multi-Account Terraform Architecture
+**Feb 2024 | Meneses Law PLLC**
+
+Enterprise-ready IaC pattern — modular stacks, isolated state, OIDC federation.
+
+- Environment/account/region-based organization, S3 + DynamoDB state isolation per stack
+- GitHub OIDC role assumption — zero static credentials in CI
+
+**Impact:** Reduced blast radius, improved deployment safety, scalable for future account expansion
+
+`Terraform` `GitHub Actions` `OIDC` `S3` `DynamoDB` `KMS` `Organizations`
+
+---
+
+### 15. EC2 Disk Exhaustion — Production Incident Response
 **April 30, 2026 | Meneses Law PLLC**
 
-SSM patch job silently failing (exit code 1, no stdout). Traced through entire invocation chain — root cause was disk exhaustion, not a script bug.
+SSM patch job silently failing — traced to 100% disk exhaustion, not a script bug.
 
-- S3-backed SSM log forensics identified `/dev/root` at 100% blocking all execution
-- Layered disk forensics: journald (242MB), rotated syslogs, compressed cloud-init logs
-- Vacuumed journals, purged artifacts, resolved broken apt state — zero downtime
-- Identified secondary IAM gap (`s3:GetObject` missing on instance profile)
-- Preserved production Deepgram ML inference container throughout
+- S3-backed SSM log forensics, layered disk forensics (journald 242MB, syslogs, cloud-init)
+- Vacuumed, purged, fixed broken apt state — zero downtime, secondary IAM gap identified
 
-**Impact:** Production restored with zero downtime, secondary security gap proactively identified
+**Impact:** Production restored, zero downtime, IAM gap proactively flagged
 
-`SSM` `EC2` `Linux` `IAM` `S3` `systemd` `apt`
+`SSM` `EC2` `Linux` `IAM` `systemd` `apt`
 
 ---
 
-### 12. EC2 Kernel Accumulation — Remediation & Prevention
+### 16. EC2 Kernel Accumulation Remediation
 **May 2026 | Meneses Law PLLC**
 
-Remediated 23 stale kernel packages on production EC2 creating disk pressure and CVE exposure.
+Removed 23 stale kernels, deployed permanent APT auto-removal config.
 
-- Audited `/lib/modules`, `/boot`, dpkg package states
-- Refactored bash remediation script: fixed inverted logic, corrected typos, replaced if/elif with `case` statement
-- Purged 23 stale `rc` entries, deployed APT config for permanent auto-removal on future upgrades
-
-**Impact:** 23 stale kernels removed, future accumulation permanently prevented, CVE surface reduced
+**Impact:** CVE surface reduced, future accumulation permanently prevented
 
 `EC2` `Ubuntu 22.04` `Bash` `APT` `dpkg`
 
 ---
 
+### 17. SonarQube PostgreSQL → AWS RDS Migration
+**Apr 4, 2026 | Meneses Law PLLC**
+
+Migrated SonarQube from local PostgreSQL to managed RDS — zero data loss.
+
+- pg_dump/restore, RDS provisioned with VPC/SG isolation, JDBC reconfigured
+
+**Impact:** Single-node dependency eliminated, managed backups enabled
+
+`RDS` `PostgreSQL` `EC2` `VPC` `SonarQube`
+
+---
+
+### 18. Lambda Chromium Layer Architecture
+**May 11, 2026 | Meneses Law PLLC**
+
+Versioned Lambda layer strategy for headless browser automation across dev/prod accounts.
+
+- chromium-v143 layer published, S3-backed, ARNs managed via SSM Parameter Store
+
+**Impact:** Lambda package size limits eliminated, repeatable upgrade pattern established
+
+`Lambda Layers` `S3` `SSM Parameter Store` `Puppeteer` `TypeScript`
+
+---
+
 ## 🌐 Networking & Private Connectivity
 
-### 13. MongoDB Atlas PrivateLink — Zero Public Internet Architecture
+### 19. MongoDB Atlas PrivateLink — Zero Public Internet Architecture
 **April 22, 2026 | Meneses Law PLLC**
 
-Architected private, zero-public-internet connectivity between MongoDB Atlas M30 and multiple AWS workloads across 3 VPCs.
+7 VPC endpoints across 3 VPCs — zero public internet for all MongoDB and AWS service traffic.
 
-- Provisioned new VPC with 2 private subnets across 2 AZs with Atlas private DNS compatibility
-- Created 7 VPC endpoints: MongoDB Atlas, SQS, S3, Bedrock, EventBridge, Secrets Manager, Textract
-- Migrated Lambda from public internet to fully private network path
-- Fixed SG misconfiguration on Atlas PrivateLink endpoint (ports 1024-1026)
-- Established Secrets Manager naming convention for multi-VPC MongoDB connectivity
-- Configured cross-account S3 access to management account
+- SQS, S3, Bedrock, EventBridge, Secrets Manager, Textract, Atlas PrivateLink
+- Full pipeline restored: SQS→Lambda→S3→Textract→Bedrock→EventBridge→MongoDB
 
-**Impact:** Zero public internet exposure, full pipeline restored (SQS→Lambda→S3→Textract→Bedrock→EventBridge→MongoDB), TLS mismatch resolved
+**Impact:** Zero public exposure, TLS mismatch resolved, repeatable multi-VPC pattern
 
-`VPC` `PrivateLink` `Lambda` `ECS` `MongoDB Atlas` `Secrets Manager` `SQS` `Bedrock` `Textract`
+`VPC` `PrivateLink` `Lambda` `ECS` `MongoDB Atlas` `Secrets Manager`
 
 ---
 
-### 14. ECS/ECR Private Subnet Networking Fix
+### 20. ECS/ECR Private Subnet Networking Fix
 **May 7, 2026 | Meneses Law PLLC**
 
-Diagnosed ECS image pull failures in private subnets caused by incomplete VPC endpoint dependency chain.
+Diagnosed and fixed incomplete VPC endpoint chain causing ECS image pull failures.
 
-- Validated full endpoint chain: `ecr.api`, `ecr.dkr`, and S3 gateway endpoints
-- Identified missing S3 backend dependency for ECR image layers
-- Documented validated private networking pattern for ECS/ECR without public internet
+- Validated ecr.api + ecr.dkr + S3 gateway dependency chain, documented pattern
 
-**Impact:** ECS deployment rollbacks eliminated, repeatable private networking pattern established
+**Impact:** Deployment rollbacks eliminated, private networking pattern established
 
-`ECS` `ECR` `VPC Interface Endpoints` `S3 Gateway Endpoint` `Route Tables` `Security Groups`
+`ECS` `ECR` `VPC Endpoints` `Route Tables` `Security Groups`
 
 ---
 
-### 15. GoTo Connect Webhook Ingestion Pipeline
+### 21. GoTo Connect Webhook Ingestion Pipeline
 **March 27, 2026 | Meneses Law PLLC**
 
-Designed secure webhook ingestion pipeline for real-time GoTo Connect telephony events. Debugged multi-layer API Gateway CORS and Mock integration failure.
+Debugged multi-layer API Gateway CORS failure blocking GoTo webhook registration.
 
-- Rebuilt OPTIONS method: HTTP → Mock integration with correct `{"statusCode": 200}` mapping
-- Traced root cause to non-empty POST body by comparing against working Rapid7 endpoint
-- Locked ALB security groups to GoTo Connect's 8 published CIDR blocks (~39,000 IPs)
-- Architected ALB → ECS Fargate routing using IP-based target groups
+- OPTIONS method rebuilt (HTTP→Mock), POST body fix, ALB locked to GoTo CIDRs (~39K IPs)
 
-**Impact:** Webhook passes GoTo validation, ALB restricted to GoTo-only CIDRs, reusable pattern established
+**Impact:** Webhook validated, ALB restricted, reusable ingestion pattern established
 
-`API Gateway` `ALB` `ECS Fargate` `Lambda` `Security Groups` `GoTo Connect`
+`API Gateway` `ALB` `ECS Fargate` `Lambda` `GoTo Connect`
 
 ---
 
-### 16. IAM Roles Anywhere — External Container S3 Access
+### 22. IAM Roles Anywhere — External Container S3 Access
 **2026 | Meneses Law PLLC**
 
-Designed zero-trust S3 access architecture for containerized workloads running outside AWS.
+Zero-trust S3 auth for external containerized workloads — eliminated long-lived credentials.
 
-- Evaluated IAM access keys vs OIDC vs IAM Roles Anywhere — selected Roles Anywhere for external workloads
-- Designed least-privilege IAM policies scoped to required S3 actions only
-- Implemented temporary credential generation pattern eliminating long-lived static credentials
+**Impact:** Zero static credentials, reusable pattern for future external integrations
 
-**Impact:** Zero long-lived credentials, repeatable auth pattern reusable across multiple external applications
+`IAM Roles Anywhere` `STS` `S3` `Docker`
 
-`IAM Roles Anywhere` `STS` `S3` `IAM` `Docker`
+---
+
+### 23. Azure Cross-Region VNet Peering
+**May 13, 2026 | Meneses Law PLLC**
+
+Resolved Azure cross-region VM connectivity blocker — VM NIC cross-region attachment unsupported.
+
+- Designed Global VNet Peering solution, enabled cross-region traffic over Azure backbone
+
+**Impact:** VM redeployment eliminated, cross-region connectivity established
+
+`Azure VNet` `Global VNet Peering` `Azure VM` `Azure Networking`
 
 ---
 
 ## 🚀 CI/CD & Developer Productivity
 
-### 17. Docker CI Build Optimization — 200 Repositories
+### 24. AI TypeScript PR Review Pipeline — 28 Repositories
+**May 7, 2026 | Meneses Law PLLC**
+
+Claude Sonnet 4.6 via Bedrock reviews every PR in 60 seconds across 28 TypeScript repos.
+
+- GitHub Actions + OIDC + tsc/ESLint + boto3, zero static AWS credentials
+- All actions SHA-pinned (SonarQube S7637), branches rebased on origin/main
+- Recovered from base-branch defect via git commit-tree plumbing under lock constraints
+
+**Impact:** 28x PR review coverage, 60-sec structured reviews, zero static creds
+
+`Bedrock` `Claude` `GitHub Actions` `OIDC` `TypeScript` `ESLint` `Python`
+
+---
+
+### 25. GitHub Branch Protection Automation
+**May 7, 2026 | Meneses Law PLLC**
+
+Programmatic branch protection enforcement via GitHub REST API — org-wide, zero manual config.
+
+- Required PR approvals, SonarQube/CI checks, linear history, admin enforcement, auto-delete merged branches
+
+**Impact:** Manual config eliminated, force pushes prevented, reusable GitOps pattern
+
+`GitHub Actions` `GitHub REST API` `SonarQube` `CI/CD`
+
+---
+
+### 26. Docker CI Build Optimization — 200 Repositories
 **2026 | Meneses Law PLLC**
 
-- GitHub Actions layer caching (`type=gha,mode=max`), Dockerfile layer ordering fix
-- Consolidated 30+ stale Dependabot PRs, fixed SonarQube scanning wrong project on every PR
+- GitHub Actions layer caching (type=gha,mode=max), Dockerfile fix, SonarQube misconfiguration repaired
 
-**Impact:** ~90% build time reduction, ~400 engineer-hours/day saved org-wide
+**Impact:** ~90% build time reduction, ~400 engineer-hours/day saved
 
-`GitHub Actions` `Docker` `SonarQube` `Dependabot` `FastAPI` `AWS ECS`
+`GitHub Actions` `Docker` `SonarQube` `Dependabot` `ECS`
 
 ---
 
-### 18. Claude/Bedrock AI Code Review Pipeline
+### 27. Claude/Bedrock AI Code Review Pipeline
 **2026 | Meneses Law PLLC**
 
-Integrated Claude (Anthropic) via Amazon Bedrock with GitHub Copilot agents for automated PR reviews across 200+ repos.
+- Claude via Bedrock + GitHub Copilot agents across 200+ repos, security/logic/style issues pre-merge
 
-**Impact:** ~70% PR review cycle time reduction
+**Impact:** ~70% PR review cycle reduction
 
-`Amazon Bedrock` `Claude (Anthropic)` `GitHub Copilot` `GitHub Actions`
-
----
-
-### 19. ECS-to-SQS Webhook Pipeline Fix
-**March 26, 2026 | Meneses Law PLLC**
-
-Debugged silent ECS-to-SQS message loss — application receiving webhooks but never forwarding to Lambda.
-
-- Traced credential resolution through `awsAssumedRole.ts` — identified `IS_LOCAL` env var misconfiguration
-- Added targeted debug logging to confirm credential path in production
-
-**Impact:** Silent message loss eliminated, ECS → SQS → Lambda pipeline fully restored
-
-`ECS` `SQS` `Lambda` `IAM` `STS` `CloudWatch` `AWS SDK v3 (TypeScript)`
+`Bedrock` `Claude` `GitHub Copilot` `GitHub Actions`
 
 ---
 
-## 🛑 Incident Response
+### 28. EC2 Self-Hosted Runner + Cognito + MongoDB CI/CD
+**June 2025 | Meneses Law PLLC**
 
-### 20. AWS WAF 403 Production Incident
+- Self-hosted runner in private VPC, automated Cognito group + MongoDB permission sync on every SPA deploy
+
+**Impact:** ~80% provisioning effort reduction, zero configuration drift
+
+`GitHub Actions` `EC2` `VPC` `Cognito` `MongoDB` `Python`
+
+---
+
+### 29. Rapid7 InsightConnect S3 Webhook Fix
+**2026 | Meneses Law PLLC**
+
+- Resolved AuthorizationHeaderMalformed errors from improper SigV4 Content-Length handling
+
+**Impact:** SOC automation pipeline unblocked, reusable webhook ingestion pattern
+
+`Rapid7 InsightConnect` `S3` `AWS SigV4` `IAM`
+
+---
+
+## 🛑 Incident Response & Forensics
+
+### 30. AWS WAF 403 Production Incident
 **March 18, 2026 | Meneses Law PLLC**
 
-Production 403 on `/courses` API — traced to WAF `SizeRestrictions_BODY` rule in under 1 hour.
+- Traced 403 to WAF SizeRestrictions_BODY, tuned BLOCK→COUNT preserving monitoring
 
-- Identified block at infrastructure layer (`awselb/2.0`), not application layer
-- Tuned WAF rule from `BLOCK` to `COUNT` preserving monitoring while restoring traffic
-
-**Impact:** Production API restored, WAF tuning documented for future large-payload APIs
+**Impact:** Production API restored in <1 hour
 
 `AWS WAF` `ALB` `ECS Fargate` `Cognito`
 
 ---
 
-### 21. SolarWinds Observability Bug — Terminated ASG Instances
+### 31. ECS-to-SQS Webhook Pipeline Fix
+**March 26, 2026 | Meneses Law PLLC**
+
+- Traced silent message loss to IS_LOCAL env var misconfiguration causing wrong IAM role assumption
+
+**Impact:** ECS→SQS→Lambda pipeline restored, silent message loss eliminated
+
+`ECS` `SQS` `Lambda` `IAM` `AWS SDK v3 (TypeScript)`
+
+---
+
+### 32. ECS Fargate IAM Chain Fix
+**March 2026 | Meneses Law PLLC**
+
+- Fixed GitHub OIDC → ECS task role → cross-account S3/Secrets Manager chain
+- Resolved iam:PassRole, STS trust policies, resource scoping (bucket vs bucket/*)
+
+**Impact:** CI/CD deployments restored, hardcoded credentials eliminated
+
+`ECS` `IAM` `STS` `Secrets Manager` `GitHub OIDC`
+
+---
+
+### 33. ECS Cross-Role S3 Bridge Fix
+**Feb 2025 | Meneses Law PLLC**
+
+- Diagnosed AccessDenied on S3CrossAccountBridgeRolePROD, fixed trust policy + resource scoping
+
+**Impact:** Production S3 access restored, zero downtime
+
+`ECS` `IAM` `STS` `S3`
+
+---
+
+### 34. AWS Payment Cryptography Alert Investigation
+**May 13, 2026 | Meneses Law PLLC**
+
+- Multi-region CloudTrail forensics (ap-northeast-1/3), validated all activity as AWS-managed service roles
+
+**Impact:** Account compromise ruled out, unnecessary escalation prevented
+
+`CloudTrail` `IAM` `Security Hub` `Trusted Advisor`
+
+---
+
+### 35. SSM Patch Scan vs Install Investigation
+**March 9, 2026 | Meneses Law PLLC**
+
+- Confirmed AWS-RunPatchBaseline in Scan mode via CloudTrail — no unauthorized installations
+
+**Impact:** Escalation prevented, patch behavior documented
+
+`SSM` `CloudTrail` `EC2` `Linux`
+
+---
+
+### 36. SolarWinds Observability Vendor Bug
 **May 7, 2026 | Meneses Law PLLC**
 
-Identified critical vendor bug causing terminated ASG instances to appear as active unhealthy entities in real-time dashboards.
+- Proved terminated ASG instances being actively polled — forced vendor engineering escalation
 
-- Designed controlled test with full instance lifecycle documentation
-- Proved active polling of deleted resources via "Last Seen" timestamp analysis
-- Compiled technical evidence package forcing vendor engineering escalation (previously claimed "expected behavior")
+**Impact:** Phantom alerts eliminated, vendor opened internal investigation
 
-**Impact:** Vendor opened internal investigation, ~10+ phantom alerts eliminated daily, escalation methodology documented
+`SolarWinds` `AWS ASG` `CloudTrail` `EC2`
 
-`AWS Auto Scaling` `EC2` `CloudTrail` `SolarWinds Observability`
+---
+
+### 37. SonarQube Crash-Loop Diagnosis
+**2023 | Meneses Law PLLC**
+
+- Correlated SonarQube + Elasticsearch + systemd logs — root cause: ES disk watermark cascade shutdown
+
+**Impact:** Misdiagnosis prevented, targeted EBS remediation path identified
+
+`SonarQube` `Elasticsearch` `EC2` `EBS` `systemd`
 
 ---
 
 ## 🤖 AI & Innovation
 
-### 22. AI-Powered Resume & Career Management System
-**2026 | Personal Project**
+### 38. Deepgram AI Engine — Self-Hosted Deployment (mTLS)
+**Dec 2025 | Meneses Law PLLC**
 
-Claude-powered career intelligence system — daily brag book entries auto-converted to quantified resume bullets, STAR talking points, and role-targeted resume versions.
+- Resolved NVIDIA driver kernel incompatibility (575→580), established mTLS cert chain
+- ALB routing, multi-account DNS, 10-stream GPU capacity confirmed
 
-**Impact:** Resume always current, zero manual writing, interview-ready at all times
+**Impact:** Production AI engine live, zero CPU fallback
 
-`Claude (Anthropic)` `Prompt Engineering` `Career Systems`
+`EC2` `ALB` `Route53` `Docker` `NVIDIA` `mTLS` `ACM`
 
 ---
 
-## ☁️ Cloud Infrastructure
+### 39. GPU Container Runtime Fix (L4/Ubuntu 24.04)
+**Nov 2025 | Meneses Law PLLC**
 
-### 23. GPU Compute Cluster Infrastructure on AWS
+- Restored nvidia-container-runtime on Ubuntu 24.04, eliminated CUDA initialization failures
+
+**Impact:** CPU fallback eliminated, GPU-ready Docker runtime documented
+
+`EC2` `NVIDIA L4` `Docker` `CUDA` `Ubuntu 24.04`
+
+---
+
+### 40. GPU Compute Cluster Infrastructure on AWS
 **2021–2023 | AirDove Logistics**
 
-Multi-node GPU clusters on EC2 P-series with Kubernetes, Terraform IaC with EFA networking, nvidia-smi + DCGM monitoring.
+- Multi-node GPU clusters on EC2 P-series, Kubernetes, Terraform IaC with EFA networking
+- nvidia-smi + DCGM fleet monitoring
 
-**Impact:** ~30% GPU utilisation improvement, ~40% intra-cluster latency reduction
+**Impact:** ~30% GPU utilisation improvement, ~40% latency reduction
 
-`Kubernetes` `AWS EC2 P-series` `Terraform` `EFA` `DCGM` `nvidia-smi`
+`Kubernetes` `EC2 P-series` `Terraform` `EFA` `DCGM`
+
+---
+
+### 41. Lambda@Edge CloudFront Referer Validation
+**Aug 2025 | Meneses Law PLLC**
+
+- Enforce allow-list for portal.meneses.law at CDN edge, fail-closed redirects globally
+
+**Impact:** 100% portal entry enforcement at CloudFront edge
+
+`Lambda@Edge` `CloudFront` `TypeScript`
+
+---
+
+### 42. AI-Powered Resume & Career Management System
+**2026 | Personal Project**
+
+- Claude-powered brag book → quantified resume bullets, STAR talking points, role-targeted versions
+
+**Impact:** Always current, zero manual writing effort
+
+`Claude (Anthropic)` `Prompt Engineering`
+
+---
+
+## 💰 Cost Optimization
+
+### 43. LocalStack Licensing Negotiation
+**March 3, 2026 | Meneses Law PLLC**
+
+- Identified 10-seat overprovisioning for 3-engineer team, eliminated unnecessary SSO add-ons
+- Negotiated $13,080/yr → $3,204/yr
+
+**Impact:** 75% cost reduction ($9,876/year saved)
+
+`LocalStack` `Vendor Management` `Cost Optimization`
+
+---
+
+### 44. SonarQube LOC Capacity Planning
+**May 2026 | Meneses Law PLLC**
+
+- Identified 499,995/500K LOC risk, coordinated enterprise upgrade to 1M LOC
+
+**Impact:** CI/CD disruption prevented, capacity planning process established
+
+`SonarQube` `DevSecOps Governance` `SAST`
 
 ---
 
@@ -390,16 +738,17 @@ Multi-node GPU clusters on EC2 P-series with Kubernetes, Terraform IaC with EFA 
 ```
 Cloud:          AWS (Organizations, Control Tower, 25+ services) | Azure | GCP
 Security:       Security Hub | GuardDuty | Audit Manager | Inspector | Rapid7 InsightIDR
-                SonarQube | CodeQL | MITRE ATT&CK | CIS Benchmarks | NIST 800-53
-                WAF | PrivateLink | IAM Roles Anywhere | SCP Architecture
+                SonarQube | CodeQL | MITRE ATT&CK | CIS | NIST 800-53 | WAF | PrivateLink
 IaC:            Terraform | CloudFormation | Ansible | SSM Automation
-CI/CD:          GitHub Actions | Jenkins | CircleCI | Azure Pipelines
+CI/CD:          GitHub Actions | Azure Pipelines | Jenkins | CircleCI
 Containers:     Docker | Kubernetes (CKA) | ECS | ECR | Fargate
-AI/ML:          Amazon Bedrock | Claude (Anthropic) | GitHub Copilot | Kiro Agentic DevOps
+AI/ML:          Amazon Bedrock | Claude (Anthropic) | GitHub Copilot | Kiro | Deepgram
 Observability:  Datadog | Prometheus | Grafana | CloudWatch | SolarWinds | VPC Flow Logs
+Identity:       Azure AD | SAML 2.0 | OIDC | SCIM | IAM Roles Anywhere | STS
 Networking:     VPC | Transit Gateway | PrivateLink | VPN | NACLs | ALB | WAF | EFA
 Scripting:      Python | Bash | PowerShell | TypeScript | YAML
-Databases:      MongoDB Atlas | MySQL | PostgreSQL | DynamoDB | Oracle
+Databases:      MongoDB Atlas | PostgreSQL | MySQL | DynamoDB | Oracle
+Tools:          LocalStack | SonarQube | SolarWinds | Cisco vMX | Azure DevOps
 ```
 
 ---
@@ -414,6 +763,7 @@ Databases:      MongoDB Atlas | MySQL | PostgreSQL | DynamoDB | Oracle
 | AWS Certified Solutions Architect | Associate |
 | AWS Certified Developer | Associate |
 | AWS Certified CloudOps Engineer | Associate |
+| Certified Kubernetes Administrator (CKA) | — |
 | AZ-104: Microsoft Azure Administrator | — |
 | Google Associate Cloud Engineer | — |
 | Google Cloud Digital Leader | — |
@@ -422,30 +772,40 @@ Databases:      MongoDB Atlas | MySQL | PostgreSQL | DynamoDB | Oracle
 
 ## 📅 Project Timeline
 
-| Date | Project | Key Metric |
-|------|---------|------------|
-| May 2026 | Security Hub Centralization | 10 accounts, 3 frameworks, 100% enrollment |
-| May 2026 | AWS Audit Manager CIS Pipeline | Org-wide CIS v1.4.0, deadline met |
-| May 7, 2026 | Rapid7 S3 Log Ingestion Lambda | SOC visibility restored, fully automated |
-| May 7, 2026 | Bedrock SCP Architecture | AI Lambda unblocked, governance preserved |
-| May 7, 2026 | ECS/ECR Private Subnet Fix | Deployment rollbacks eliminated |
-| May 7, 2026 | SolarWinds Bug Investigation | Vendor escalation forced, phantom alerts eliminated |
-| May 4, 2026 | Cross-Account SSM Patching | Full compliance, org-wide automation |
-| May 2026 | Centralized SSM Infrastructure | 49 associations, 6 accounts, 80% overhead reduction |
-| May 2026 | Inspector + SSM Vuln Pipeline | 85% MTTR reduction, 8hrs/week saved |
-| May 2026 | Kernel Accumulation Remediation | 23 kernels removed, prevention deployed |
-| May 1, 2026 | Rapid7 Honeypot Audit & Expansion | 2x coverage, NACL gap fixed, MITRE detections |
-| Apr 30, 2026 | EC2 Disk Exhaustion Response | Root cause found, prod restored |
+| Date | Project | Metric |
+|------|---------|--------|
+| May 13, 2026 | AWS Governance & Platform Standards | Terraform modules, ECS CI/CD |
+| May 13, 2026 | AWS Payment Cryptography Investigation | Compromise ruled out |
+| May 13, 2026 | Azure Cross-Region VNet Peering | VM redeployment eliminated |
+| May 11, 2026 | Lambda Chromium Layer | Multi-account, SSM-managed |
+| May 7, 2026 | AI TypeScript PR Review (28 repos) | 60-sec reviews, zero static creds |
+| May 7, 2026 | GitHub Branch Protection Automation | Org-wide, zero manual config |
+| May 2026 | SonarQube LOC Capacity Planning | 499,995→1M LOC |
+| May 2026 | Security Hub Centralization | 10 accounts, 3 frameworks |
+| May 2026 | AWS Audit Manager CIS Pipeline | Org-wide, deadline met |
+| May 4, 2026 | Cross-Account SSM Patching | Org-wide compliance |
+| May 1, 2026 | Rapid7 Honeypot Audit & Expansion | 2x coverage, MITRE detections |
+| Apr 30, 2026 | EC2 Disk Exhaustion Response | Prod restored, zero downtime |
 | Apr 22, 2026 | MongoDB Atlas PrivateLink | Zero public internet, 7 endpoints |
-| April 2026 | AWS Security Hardening | 33% findings reduction, $200+/mo saved |
-| Mar 27, 2026 | GoTo Connect Webhook Pipeline | Webhook validated, ALB locked |
-| Mar 26, 2026 | ECS-to-SQS Pipeline Fix | Silent message loss eliminated |
-| Mar 18, 2026 | AWS WAF 403 Incident | Production API restored |
-| 2026 | Docker CI Optimization | 90% build reduction, ~400 hrs/day saved |
-| 2026 | Claude/Bedrock AI Code Review | 70% PR review reduction, 200+ repos |
+| Apr 4, 2026 | SonarQube PostgreSQL → RDS | Zero data loss |
+| April 2026 | AWS Security Hardening | 33% findings, $200+/mo saved |
+| Mar 27, 2026 | GoTo Connect Webhook Pipeline | Webhook validated |
+| Mar 18, 2026 | AWS WAF 403 Incident | Production restored <1hr |
+| Mar 2026 | ECS Fargate IAM Chain Fix | OIDC→ECS→cross-account |
+| Mar 3, 2026 | LocalStack Licensing Negotiation | 75% cost reduction |
+| Dec 2025 | Deepgram AI Engine (mTLS) | GPU live, 10-stream capacity |
+| Nov 2025 | GPU Container Runtime Fix | CPU fallback eliminated |
+| Oct 2025 | Control Tower Landing Zone Unblock | Governance restored |
+| Aug 2025 | Lambda@Edge CloudFront Validation | 100% portal enforcement |
+| Jun 2025 | EC2 Runner + Cognito + MongoDB CI/CD | 80% provisioning reduction |
+| May 2025 | Secrets Rotation & Cert Automation | 90% manual effort reduction |
+| Feb 2025 | ECS Cross-Role S3 Bridge Fix | Zero downtime |
+| Feb 2024 | Multi-Account Terraform Architecture | Modular, OIDC, state isolated |
+| 2026 | Docker CI Optimization | 90% build reduction |
+| 2026 | Claude/Bedrock AI Code Review | 70% PR review reduction |
 | 2026 | IAM Roles Anywhere | Zero long-lived credentials |
-| 2021–2023 | GPU Cluster Infrastructure | 30% utilisation up, 40% latency down |
+| 2021–2023 | GPU Cluster Infrastructure | 30% utilisation up |
 
 ---
 
-*Last updated: May 2026 | 23 projects documented*
+*Last updated: May 2026 | 44 projects documented | 2 concurrent role tracks*
