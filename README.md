@@ -1,4 +1,4 @@
-# John Gaji — Senior DevSecOps Engineer & Cloud Security Architect
+# John Gaji — Senior DevSecOps Engineer & Cloud Security Engineer
 
 > Houston, TX | [LinkedIn](https://linkedin.com/in/john-gaji/) | john.s.gaji@gmail.com | [Portfolio](https://github.com/sheyijojo/devops-portfolio)
 
