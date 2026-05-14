@@ -7,6 +7,7 @@
 | Metric | Result |
 |--------|--------|
 | AWS accounts managed | 10-account Organization |
+| Azure DevOps & GitHub Enterprise Adminstration| 
 | Security Hub findings reduced | 33% (159 → 106) |
 | CI build time reduction | ~90% across 200+ repos |
 | PR review time reduction | ~70% via AI automation |
