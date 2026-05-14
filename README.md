@@ -21,20 +21,17 @@
 
 ---
 
-## 💼 Experience Overview
+## 💼 Current Role
 
-| Role | Scope |
-|------|-------|
-| **Senior DevSecOps Engineer** | AWS security architecture, CI/CD automation, incident response, compliance engineering |
-| **Azure & DevOps Tools Administrator** | GitHub SSO/SAML, Azure AD, SolarWinds, LocalStack, Azure DevOps, SonarQube, Cisco vMX |
+**Senior DevSecOps Engineer** | Meneses Law PLLC | Jan 2024 – Present | Houston, TX
 
-Both roles held concurrently at **Meneses Law PLLC** | Jan 2024 – Present | Houston, TX
+Full-stack cloud security, DevOps automation, platform engineering, and enterprise tools administration — spanning AWS, Azure, CI/CD pipelines, identity federation, monitoring, and developer platform governance.
 
 ---
 
-## 🖥️ Azure & DevOps Tools Administration
+## 🖥️ Platform & Tools Administration
 
-> Platform and tooling administration across enterprise developer and security platforms — managing identity federation, monitoring, local cloud testing, CI/CD governance, and network infrastructure.
+> Part of the Senior DevSecOps Engineer role — enterprise developer and security platform administration covering identity federation, monitoring, local cloud testing, CI/CD governance, and network infrastructure.
 
 ### A1. GitHub SSO / SAML Configuration & Identity Federation
 **2024–2026 | Meneses Law PLLC**
