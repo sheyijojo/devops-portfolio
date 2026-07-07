@@ -1,4 +1,4 @@
-# John Gaji — Senior DevSecOps Engineer & Cloud Security Architect & Azure Platform Engineer
+# John Gaji — Senior DevSecOps Engineer & Cloud Security Engineer & Azure Platform Engineer
 
 > Houston, TX | [LinkedIn](https://linkedin.com/in/john-gaji/) | john.s.gaji@gmail.com | [Portfolio](https://github.com/sheyijojo/devops-portfolio)
 
