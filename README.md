@@ -1,4 +1,4 @@
-# John Gaji — Senior DevSecOps Engineer & Cloud Security Engineer
+# John Gaji — Senior DevSecOps Engineer & Cloud Security Architect & Azure Platform Engineer
 
 > Houston, TX | [LinkedIn](https://linkedin.com/in/john-gaji/) | john.s.gaji@gmail.com | [Portfolio](https://github.com/sheyijojo/devops-portfolio)
 
@@ -7,7 +7,6 @@
 | Metric | Result |
 |--------|--------|
 | AWS accounts managed | 10-account Organization |
-| Azure DevOps & GitHub Enterprise Adminstration| Cloud Platform Administrator |
 | Security Hub findings reduced | 33% (159 → 106) |
 | CI build time reduction | ~90% across 200+ repos |
 | PR review time reduction | ~70% via AI automation |
@@ -806,4 +805,186 @@ Tools:          LocalStack | SonarQube | SolarWinds | Cisco vMX | Azure DevOps
 
 ---
 
-*Last updated: May 2026 | 44 projects documented | 2 concurrent role tracks*
+
+
+---
+
+### 45. MongoDB Atlas PrivateLink — Production Account Extension
+**May 8, 2026 | Meneses Law PLLC**
+
+Extended Atlas PrivateLink from dev to production AWS account — provisioned full networking from scratch, separate endpoint per environment.
+
+- Provisioned production VPC (private subnets, DNS, SGs), dedicated Atlas PrivateLink endpoint separate from dev
+- Attached production Lambda to new VPC — zero public internet exposure
+- Fixed GoTo webhook ECS crash: wrong Secrets Manager reference pointing to different VPC's MongoDB endpoint
+- Established secrets naming convention across dev, prod, and local environments
+
+**Impact:** Production MongoDB fully private, dev/prod environments isolated, GoTo webhook restored
+
+`VPC` `PrivateLink` `Lambda` `ECS` `Secrets Manager` `MongoDB Atlas` `CloudFormation`
+
+---
+
+### 46. Agentic CI/CD Deployment Pipeline — AWS + Azure
+**May 2026 | Meneses Law PLLC**
+
+Platform-agnostic agentic deployment standard — Bedrock reasoning layer governs deployments from both GitHub Actions and Azure Pipelines.
+
+- Bedrock agent with Lambda action groups: SonarQube quality gates, Checkov IaC scanning (CIS benchmark), Security Hub findings — structured JSON for agent reasoning
+- LOW/MEDIUM/HIGH risk classification with auto-approve vs. human escalation and structured PR comments
+- GitHub Actions OIDC + Azure Pipelines workload identity federation — zero long-lived credentials on either platform
+- Replicated full pipeline in Azure Pipelines with Azure Repos PR decoration and Environments approval gates
+- Immutable audit logging to S3 Object Lock (COMPLIANCE mode) + CloudWatch across both platforms
+
+**Impact:** ~2–3 hrs/week senior review time saved, every deployment decision tamper-proof logged, zero long-lived credentials
+
+`Bedrock` `Claude Sonnet` `Lambda` `Security Hub` `S3 Object Lock` `GitHub Actions` `Azure Pipelines` `OIDC` `Workload Identity Federation` `SonarQube` `Checkov`
+
+---
+
+### 47. Lambda VPC Egress Architecture — Production Fix
+**May 15, 2026 | Meneses Law PLLC**
+
+Diagnosed and resolved Lambda ConnectTimeoutError across 2 isolated VPCs — full egress architecture from CloudShell, zero downtime.
+
+- Root cause: missing IGWs, failed NAT Gateways, blackhole routes, exhausted EIP limits
+- Provisioned IGW, public subnets, NAT Gateways, route tables across both VPCs
+- Freed EIP by removing orphaned NAT Gateway on stopped test EC2
+- Verified end-to-end Lambda → GoTo API + Secrets Manager — MongoDB PrivateLink preserved untouched
+
+**Impact:** GoTo API call sync restored dev + prod, $3.60/month EIP waste recovered, zero downtime
+
+`Lambda` `VPC` `NAT Gateway` `IGW` `EIP` `Secrets Manager` `AWS CLI` `CloudShell`
+
+---
+
+*Last updated: May 22, 2026 | 55 projects documented*
+
+---
+
+### 48. GitHub Actions CI Repository Overhaul (.github-ci)
+**May 22, 2026 | Meneses Law PLLC**
+
+Overhauled central CI repository to be fully environment-aware, secrets-safe, and production-ready across 4 AWS environments.
+
+- Refactored branch protection to use GitHub variables (BRANCH_PROTECTION_BYPASS_USERS/TEAMS) — no code change needed to update bypass lists
+- Per-environment AWS credential isolation: 8 scoped secrets replacing 2 shared secrets — compromised staging cannot touch production
+- Removed 100% of hardcoded AWS identifiers (account ID, region, 5 S3 ARNs, Lambda ARN) — replaced with `${AWS::AccountId}`, `${AWS::Region}`, `!Sub`
+- Built `teardown-oidc-reusable.yml` with force mode detaching IAM policies before `delete-stack` — unblocks stuck OIDC stack deletions
+- Documented all 10 reusable workflows for the first time with full input/secret/output tables
+
+**Impact:** Credential blast radius isolated per environment, zero hardcoded identifiers, stack teardown unblocked, 10 workflows documented
+
+`AWS IAM` `CloudFormation` `GitHub Actions` `OIDC` `jq` `bash` `YAML`
+
+---
+
+### 49. Dependabot CI Failure Remediation — intake-spa
+**May 22, 2026 | Meneses Law PLLC**
+
+Diagnosed and fixed 3 compounding root causes blocking all 7 Dependabot PRs — none previously documented.
+
+- Self-hosted runner blocked for Dependabot, SONAR_TOKEN/SONAR_HOST_URL missing from Dependabot secrets, GITHUB_TOKEN write restriction on Dependabot pull_request events
+- Fixed sonarqube.yml to dynamically select `ubuntu-latest` for Dependabot and skip internal scan steps while preserving required status check name so branch protection passes
+- Opened and merged PR #123 (`fix/dependabot-ci-failures`) + follow-up PR to ship complete fix
+
+**Impact:** 7 Dependabot PRs unblocked, zero manual workarounds, SonarQube required check passes without exposing internal server
+
+`GitHub Actions` `SonarQube` `Dependabot` `GitHub Secrets` `YAML`
+
+---
+
+### 50. Pipeline Refactor — Reusable Workflows + SonarQube Hardening
+**May 22, 2026 | Meneses Law PLLC**
+
+Refactored lambda deploy pipelines to consume central `.github-ci` reusable workflows — resolved 3 SonarQube security findings and fixed broken npm caching.
+
+- Resolved merge conflicts across 3 active PRs via git rebase
+- Removed 154 lines of local setup-oidc.yml — replaced with 27-line thin caller
+- Fixed SonarQube S7637 (SHA-pinned all 4 action refs), S7630 (script injection via env: scoping), S6505 (--ignore-scripts on npm ci)
+- Fixed broken npm cache: replaced `rm -f package-lock.json && npm install` with `npm ci` — restored ~100% cache hit rate
+- Automated branch deletion on PR merge
+
+**Impact:** 3 security hotspots resolved, Quality Gate passing, ~100% npm cache restored, 154 lines removed, zero local CloudFormation templates
+
+`GitHub Actions` `SonarQube` `npm` `AWS OIDC` `CloudFormation` `git rebase`
+
+---
+
+### 51. Centralized GitHub Actions OIDC Authentication Architecture
+**May 22, 2025 | Meneses Law PLLC**
+
+Centralized per-repo OIDC setup into single reusable workflow — eliminated drift across all org repositories.
+
+- Refactored per-repo setup-oidc.yml into `workflow_call`-triggered workflow in central `.github-ci` repo
+- Reduced per-repo boilerplate from ~80 lines to ~20 lines (75% reduction)
+- Composite action accepts explicit github-repo/github-org inputs with automatic GITHUB_REPOSITORY inference
+- Future OIDC changes require 1 PR in 1 repo instead of N PRs across N repos
+
+**Impact:** 75% boilerplate reduction, new repo AWS OIDC onboarding in <5 minutes, drift eliminated org-wide
+
+`AWS IAM` `CloudFormation` `STS OIDC` `GitHub Actions` `YAML`
+
+---
+
+### 52. Centralized CI Platform + AI Code Review Agent
+**May 22, 2026 | Meneses Law PLLC**
+
+Architected central CI platform for multi-runtime org (Bun, Node, Python, React/TypeScript) with Claude/Bedrock AI agent integrated across all pipelines.
+
+- 7 reusable GitHub Actions workflows: standards enforcement, Lambda deploys (Bun/Node/Python), React frontend deploys, AI review, automated releases — each consumer repo reduced to ~20 lines
+- Fixed silent ESLint misconfiguration bug: `createConfig()` called at export time with no plugins, causing TypeScript parser undefined across all consumer repos
+- Integrated Claude on Bedrock in 3 modes: PR code review (bugs, types, naming), security scanning (IAM, secrets, injection risks), test failure root cause analysis — all posting as PR comments
+- Hardened 3 unmaintained shared packages (ESLint config, Prettier config, GWT test wrapper) with full test suites, typed exports, CODEOWNERS, Dependabot, and release-please
+- OIDC-only authentication across all pipelines — zero long-lived credentials
+
+**Impact:** Zero long-lived credentials org-wide, ESLint bug fixed across all repos, standards gate enforced on every PR, Claude agent on every pipeline run, 3 packages now maintained with automated releases
+
+`GitHub Actions` `Amazon Bedrock` `Claude Sonnet` `AWS Lambda` `OIDC` `ESLint` `TypeScript` `Bun` `release-please`
+
+---
+
+### 53. Azure Cost Management Budget & Alerting
+**May 2026 | Meneses Law PLLC**
+
+Activated Azure subscription cost budget with automated alerting — first-ever cost guardrail on the subscription.
+
+- Created monthly budget with 80% threshold alert via `az rest` (resolved deprecated CLI flags + API version mismatch)
+- Automated email alert to billing team when spend hits threshold
+
+**Impact:** Proactive cost visibility where none existed, unexpected charges now flagged before billing cycle closes
+
+`Azure CLI` `Azure Cloud Shell` `Azure Cost Management` `Azure REST API`
+
+---
+
+### 54. MongoDB Atlas PrivateLink Runbook — Junior Engineer Documentation
+**May 8, 2026 | Meneses Law PLLC**
+
+Authored comprehensive internal runbook converting tribal knowledge into reusable team documentation.
+
+- Deep-dive on security group design (compute side + VPC endpoint side — most commonly misunderstood)
+- Documented non-obvious Atlas port behavior (1024-1026) and `No replica set members found` root cause
+- 10-step setup guide for connecting any new Lambda or ECS service to Atlas privately from scratch
+- Troubleshooting table mapping every real error encountered to root cause and fix
+- Covers dev, prod, and local development environments in one document
+
+**Impact:** 4–8 hours saved per future onboarding/debugging session, published to Confluence, zero knowledge silos
+
+`Confluence` `AWS VPC` `PrivateLink` `Lambda` `ECS` `Secrets Manager` `MongoDB Atlas`
+
+---
+
+### 55. Azure Management Groups — Enterprise Subscription Governance
+**January 2026 | Meneses Law PLLC**
+
+Created and configured Azure Management Groups to logically organize and segment 10 Enterprise subscriptions, enabling centralized RBAC and Azure Policy inheritance across the organization.
+
+- Designed management group hierarchy to logically segment 10 Enterprise Azure subscriptions under centralized governance
+- Configured RBAC role assignments at the management group level — enabling Help Desk staff to create support requests across all subscriptions without granting individual per-subscription access
+- Leveraged Azure Policy inheritance through the management group structure to enforce consistent governance across all child subscriptions
+- Eliminated the operational overhead of managing access on a per-subscription basis
+
+**Impact:** Centralized RBAC and policy governance across 10 Enterprise subscriptions, Help Desk support-request access provisioned org-wide through inheritance rather than individual grants
+
+`Azure Management Groups` `Azure RBAC` `Azure Policy` `Azure Subscriptions` `Azure AD`
